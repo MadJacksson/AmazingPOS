@@ -5,26 +5,17 @@ package se.kth.iv1350.amazingpos.integration;
  */
 public class BuildInventory {
     private static final BuildInventory BUILD_INVENTORY = new BuildInventory();
-    private DiscountInventory discountInventory;
     private ItemInventory itemInventory;
 
     /**
      * A new instance is created
      */
     public BuildInventory(){
-        discountInventory = new DiscountInventory();
         itemInventory = new ItemInventory();
     }
 
     public static BuildInventory getBuildInventory() {
         return BUILD_INVENTORY;
-    }
-
-    /**
-     * @return Gives the value of discountInventory.
-     */
-    public DiscountInventory getDiscountInventory() {
-        return discountInventory;
     }
 
     /**

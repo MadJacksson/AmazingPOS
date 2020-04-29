@@ -19,7 +19,6 @@ public class Controller {
     private Printer printer;
     private ExternalAccountingSystem accountingSystem;
     private ExternalInventorySystem inventorySystem;
-    private DiscountInventory discountInventory;
     private ItemInventory itemInventory;
     /**
      * Controller is represented by creating a new instance
@@ -30,7 +29,6 @@ public class Controller {
     public Controller(BuildSystem buildSystem, BuildInventory buildInventory, Printer printer) {
         this.accountingSystem = buildSystem.getAccountingSystem();
         this.inventorySystem = buildSystem.getInventorySystem();
-        this.discountInventory = buildInventory.getDiscountInventory();
         this.itemInventory = buildInventory.getItemInventory();
         this.printer = printer;
         this.cashRegister = new Register();

@@ -19,7 +19,7 @@ public class ViewTest {
     private PrintStream originalSysOut;
     
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         Controller contr = new Controller(new BuildSystem(), new BuildInventory(), new Printer());
         instanceToTest = new View(contr);
 
@@ -30,7 +30,7 @@ public class ViewTest {
     }
     
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         instanceToTest = null;
         
         printoutBuffer = null;
