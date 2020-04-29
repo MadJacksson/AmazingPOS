@@ -75,10 +75,10 @@ public class Controller {
      */
     public String pay(Amount paidAmount) {
         Payment payment = new Payment(paidAmount, sale.getSaleTotal());
-        cashRegister.addPayment(payment);
+        //cashRegister.addPayment(payment);
         accountingSystem.updateAccounting(sale);
         inventorySystem.updateInventory(sale);
-        Receipt receipt = new Receipt(sale);
+        Receipt receipt = new Receipt(sale, payment);
         printer.printReceipt(receipt);
         sale = null;
         return "Change: " + payment.getChange().toString();

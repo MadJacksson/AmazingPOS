@@ -11,9 +11,10 @@ public class Receipt {
     /**
      * A receipt represented by creating a instance.
      * @param sale Is the information that will be printed on the receipt.
+     * @param payment
      */
 
-    public Receipt(Sale sale) {
+    public Receipt(Sale sale, Payment payment) {
         this.sale = sale;
     }
 

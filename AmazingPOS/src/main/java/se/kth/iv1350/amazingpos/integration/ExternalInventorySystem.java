@@ -50,9 +50,9 @@ public class ExternalInventorySystem {
     }
 
     private void addItems(){
-        inventory.put("Tomat", new Item(new ItemData(new Amount(20), "Tomat", new Amount(10)), "Tomat", new Amount(Integer.MAX_VALUE)));
-        inventory.put("Gurka", new Item(new ItemData(new Amount(30), "Gurka", new Amount(15)), "Gurka", new Amount(Integer.MAX_VALUE)));
-        inventory.put("Apelsin", new Item(new ItemData(new Amount(42), "Apelsin", new Amount(20)), "Apelsin", new Amount(Integer.MAX_VALUE)));
-        inventory.put("Paprika", new Item(new ItemData(new Amount(5), "Paprika", new Amount(2)), "Paprika", new Amount(Integer.MAX_VALUE)));
+        inventory.put("Broccoli", new Item(new ItemData(new Amount(20), "Broccoli", new Amount(10)), "Broccoli", new Amount(Integer.MAX_VALUE)));
+        inventory.put("Beef", new Item(new ItemData(new Amount(30), "Broccoli", new Amount(15)), "Broccoli", new Amount(Integer.MAX_VALUE)));
+        inventory.put("Honey", new Item(new ItemData(new Amount(42), "Honey", new Amount(20)), "Honey", new Amount(Integer.MAX_VALUE)));
+        inventory.put("Potatoes", new Item(new ItemData(new Amount(5), "Potatoes", new Amount(2)), "Potatoes", new Amount(Integer.MAX_VALUE)));
     }
 }

@@ -34,9 +34,9 @@ public class ItemInventory {
     }
 
     private void addItems(){
-        itemList.put("Tomat", new ItemData(new Amount(20), "Tomat", new Amount(10)));
-        itemList.put("Gurka", new ItemData(new Amount(30), "Gurka", new Amount(15)));
-        itemList.put("Apelsin", new ItemData(new Amount(42), "Apelsin", new Amount(20)));
-        itemList.put("Paprika", new ItemData(new Amount(5), "Paprika", new Amount(2)));
+        itemList.put("Broccoli", new ItemData(new Amount(20), "Broccoli", new Amount(10)));
+        itemList.put("Beef", new ItemData(new Amount(30), "Beef", new Amount(15)));
+        itemList.put("Honey", new ItemData(new Amount(42), "Honey", new Amount(20)));
+        itemList.put("Potatoes", new ItemData(new Amount(5), "Potatoes", new Amount(2)));
     }
 }
