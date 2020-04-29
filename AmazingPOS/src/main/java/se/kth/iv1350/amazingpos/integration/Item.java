@@ -16,7 +16,7 @@ public class Item {
      * @param itemIdentifier Identifier of item.
      * @param itemAmount Amount of item.
      */
-    Item(ItemData itemDescription, String itemIdentifier, Amount itemAmount) {
+    public Item(ItemData itemDescription, String itemIdentifier, Amount itemAmount) {
         this.itemDescription = itemDescription;
         this.itemIdentifier = itemIdentifier;
         this.itemAmount = itemAmount;
@@ -27,7 +27,7 @@ public class Item {
      * @param otherItemAmount The {@link Amount} will be added to itemAmount.
      */
     public void increaseItemAmount(Amount otherItemAmount) {
-        this.itemAmount = this.itemAmount.minus(otherItemAmount);
+        this.itemAmount = this.itemAmount.plus(otherItemAmount);
     }
 
     /**
@@ -83,9 +83,9 @@ public class Item {
 
     /**
      * Will decrease the itemAmount of items with the specified {@link Amount}
-     * @param otheritemAmount The {@link Amount} that will be subtracted to the itemAmount.
+     * @param otherItemAmount The {@link Amount} that will be subtracted to the itemAmount.
      */
-    void decreaseItemAmount(Amount otheritemAmount){
-        this.itemAmount = this.itemAmount.minus(otheritemAmount);
+    void decreaseItemAmount(Amount otherItemAmount){
+        this.itemAmount = this.itemAmount.minus(otherItemAmount);
     }
 }

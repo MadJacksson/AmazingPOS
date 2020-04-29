@@ -18,22 +18,23 @@ public class Receipt {
         this.sale = sale;
     }
 
+
     /**
      * Makes it to a String.
      * @return The instance as a <code>String</code>.
      */
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("/n*******RECEIPT*******/n");
+        result.append("\n*******RECEIPT*******\n");
         addLocalDate(result);
-        result.append("/nITEMS: /n");
+        result.append("\nITEMS: \n");
         result.append(sale.toString());
         return result.toString();
     }
 
     private void addLocalDate(StringBuilder result) {
         LocalDateTime saleTime = LocalDateTime.now();
-        result.append("/nSALE TIME: ").append(saleTime.toLocalDate().toString());
+        result.append("\nSALE TIME: ").append(saleTime.toLocalDate().toString());
     }
 
 }

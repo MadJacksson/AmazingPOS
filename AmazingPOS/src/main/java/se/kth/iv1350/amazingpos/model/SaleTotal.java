@@ -13,7 +13,7 @@ public class SaleTotal {
     /**
      * An instance is created representing the sale total.
      */
-    SaleTotal() {
+    public SaleTotal() {
         this.total = new Amount(0);
         this.totalVAT = new Amount(0);
     }

@@ -18,7 +18,7 @@ public class ItemData {
      * @param itemName The name of the item.
      * @param VATAmount The VAT amount of the item.
      */
-    ItemData(Amount cost, String itemName, Amount VATAmount){
+    public ItemData(Amount cost, String itemName, Amount VATAmount){
         this.cost = cost;
         this.itemName = itemName;
         this.VATAmount = VATAmount;
