@@ -1,11 +1,12 @@
 package se.kth.iv1350.amazingpos.integration;
 
+import se.kth.iv1350.amazingpos.model.SaleTotal;
 import se.kth.iv1350.amazingpos.util.Amount;
 
 /**
  * Acts as an Item
  */
-public class Item {
+public class Item extends SaleTotal {
     private ItemData itemDescription;
     private String itemIdentifier;
     private Amount itemAmount;

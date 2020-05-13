@@ -49,6 +49,8 @@ public class Amount {
         return Objects.equals(this.amount, other.amount);
     }
 
+
+
     /**
      * Subtracts the specific <code>Amount</code>.
      * @param other The specific <code>Amount</code>

@@ -26,11 +26,28 @@ public class ItemInventory {
         return itemList.containsKey(itemIdentifier);
     }
 
-    public Item getItem(String itemIdentifier, Amount quantity){
-        if (itemExists(itemIdentifier)){
-            return new Item(itemList.get(itemIdentifier), itemIdentifier, quantity);
+    /**
+     * Gets the item description of the specified itemIdentifier.
+     * Returns an item with the specified quantity.
+     *
+     * @param itemIdentifier The identifier of an item.
+     * @param quantity The amount of items.
+     * @return An item with it's itemDescription and quantity or null if the identifier didn't exist..
+     * @throws AddItemException If the itemIdentifier doesn't exist
+     * @throws NoDatabaseException If the database call failed.
+     */
+    public Item getItem(String itemIdentifier, Amount quantity) throws AddItemException, NoDatabaseException{
+        if (!itemExists(itemIdentifier)){
+            throw new AddItemException(itemIdentifier);
         }
-        return null;
+        Item newItem = new Item(itemList.get(itemIdentifier), itemIdentifier, quantity);
+        if (!newItem.getItemIdentifier().equals(itemIdentifier)){
+            throw new NoDatabaseException("ItemId does not match");
+        }
+        if(newItem.getItemIdentifier().equals("Honey")){
+            throw new NoDatabaseException("No connection to server.");
+        }
+        return newItem;
     }
 
     private void addItems(){

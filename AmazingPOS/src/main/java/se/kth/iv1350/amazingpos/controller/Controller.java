@@ -3,9 +3,12 @@ package se.kth.iv1350.amazingpos.controller;
 import se.kth.iv1350.amazingpos.integration.*;
 import se.kth.iv1350.amazingpos.model.Payment;
 import se.kth.iv1350.amazingpos.model.Receipt;
-import se.kth.iv1350.amazingpos.model.Register;
+import se.kth.iv1350.amazingpos.model.RegisterObserver;
 import se.kth.iv1350.amazingpos.model.Sale;
 import se.kth.iv1350.amazingpos.util.Amount;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the application's only controller. All calls to the model pass through this class.
@@ -15,11 +18,19 @@ import se.kth.iv1350.amazingpos.util.Amount;
  */
 public class Controller {
     private Sale sale;
-    private Register cashRegister;
     private Printer printer;
-    private ExternalAccountingSystem accountingSystem;
     private ExternalInventorySystem inventorySystem;
     private ItemInventory itemInventory;
+    private ExternalAccountingSystem accountingSystem;
+    private List<RegisterObserver> registerObservers = new ArrayList<>();
+
+    /**
+     * Starts a new sale. This method must be called before doing anything else during a sale.
+     */
+    public void startSale() {
+        sale = new Sale();
+    }
+
     /**
      * Controller is represented by creating a new instance
      * @param buildSystem Handles the external system calls
@@ -31,15 +42,9 @@ public class Controller {
         this.inventorySystem = buildSystem.getInventorySystem();
         this.itemInventory = buildInventory.getItemInventory();
         this.printer = printer;
-        this.cashRegister = new Register();
     }
 
-    /**
-     * Starts a new sale. This method must be called before doing anything else during a sale.
-     */
-    public void startSale() {
-        sale = new Sale();
-    }
+
     /**
      * If the item exists it is added to the sale while the application returns information
      * about the item, and it's total.
@@ -47,25 +52,26 @@ public class Controller {
      * @param amount The item amount
      * @return Returns the information about the item and it's cost, else it returns
      * just the "running total: ".
+     *  @throws AddItemException          Thrown if item can't be found
+     * 	@throws SearchFailedException Thrown if item couldn't be retrieved in any other way
      */
-    public String registerItem(String itemIdentifier, Amount amount) {
-        if (itemInventory.itemExists(itemIdentifier)) {
-            Item item = itemInventory.getItem(itemIdentifier, amount);
-            return sale.updateSale(item) + ", amount of items: " + amount.toString() +
-                    ", running total: " + displayTotal();
-        }
-        return "running total: " + displayTotal();
+    public Item registerItem(String itemIdentifier, Amount amount) throws AddItemException, SearchFailedException, NoDatabaseException{
+        checkIfNewSaleStarted("registerItem");
+        checkIfNewSaleStarted("registerItem");
+        Item item = itemInventory.getItem(itemIdentifier, amount);
+        sale.updateSale(item);
+        return item;
     }
     /**
      * Display total with the VAT
      * @return Prints "Total with VAT" and the total with VAT
      */
-    public String displayTotalWithVAT() {
-        return "Total with VAT: " + sale.getSaleTotal().getTotalWithVAT().toString();
+    public Amount displayTotalWithVAT() {
+        return sale.getSaleTotal().getTotalWithVAT();
     }
 
-    private String displayTotal() {
-        return sale.getSaleTotal().getSaleTotal().toString();
+    public Amount displayTotal(){
+        return sale.getSaleTotal().getSaleTotal();
     }
     /**
      * Ends the program by with payment and will be added to the balance in the cashregister.
@@ -73,14 +79,33 @@ public class Controller {
      * @param paidAmount Amount paid by the customer
      * @return Change that is left after the payment
      */
-    public String pay(Amount paidAmount) {
+    public Amount pay(Amount paidAmount){
         Payment payment = new Payment(paidAmount, sale.getSaleTotal());
-        //cashRegister.addPayment(payment);
+        payment.addObservers(registerObservers);
         accountingSystem.updateAccounting(sale);
         inventorySystem.updateInventory(sale);
         Receipt receipt = new Receipt(sale, payment);
         printer.printReceipt(receipt);
         sale = null;
-        return "Change: " + payment.getChange().toString();
+        return payment.getChange();
     }
+
+    /**
+     * Adds observer that notifies when payment occurs
+     * @param obs The observer
+     */
+    public void addObserver(RegisterObserver obs){
+        registerObservers.add(obs);
+    }
+
+    /**
+     * Ends the sale
+     * @return     The total price as a string
+     */
+    private void checkIfNewSaleStarted(String method) {
+        if (sale == null) {
+            throw new IllegalStateException("Call to " + method + " was made before initiating a new sale.");
+        }
+    }
+
 }

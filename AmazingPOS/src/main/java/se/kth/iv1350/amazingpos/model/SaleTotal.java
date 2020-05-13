@@ -56,4 +56,14 @@ public class SaleTotal {
         this.totalVAT = this.totalVAT.plus(itemAmount.multiply(itemVAT));
         this.total = this.total.plus(itemAmount.multiply(itemCost));
     }
+
+    /**
+     * Updates the total revenue with total and totalVAT
+     * @param total  The total to be added
+     */
+    public void updateSaleTotal(SaleTotal total){
+        this.total = this.total.plus(total.getSaleTotal());
+        this.totalVAT = this.totalVAT.plus(total.getTotalVAT());
+    }
+
 }

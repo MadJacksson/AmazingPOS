@@ -39,14 +39,13 @@ public class Sale {
      * @param item Will be added on the sale.
      * @return The <code>itemDescription</code> is given as a string.
      */
-    public String updateSale(Item item) {
+    public void updateSale(Item item) {
         if(itemListContains(item)) {
             updateItemAmountAndTotal(item);
         }
         else {
             addItemAndUpdateTotal(item);
         }
-        return item.getItemDescription().toString();
     }
 
     /**
@@ -99,4 +98,5 @@ public class Sale {
         builder.append(line);
         builder.append("\n");
     }
+
 }

@@ -4,11 +4,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.kth.iv1350.amazingpos.controller.Controller;
-import se.kth.iv1350.amazingpos.integration.BuildInventory;
-import se.kth.iv1350.amazingpos.integration.BuildSystem;
-import se.kth.iv1350.amazingpos.integration.Printer;
+import se.kth.iv1350.amazingpos.controller.SearchFailedException;
+import se.kth.iv1350.amazingpos.integration.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -19,7 +19,7 @@ public class ViewTest {
     private PrintStream originalSysOut;
     
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         Controller contr = new Controller(new BuildSystem(), new BuildInventory(), new Printer());
         instanceToTest = new View(contr);
 
@@ -38,7 +38,7 @@ public class ViewTest {
     }
 
     @Test
-    public void testRunFakeExecution() {
+    void testRunFakeExecution() throws SearchFailedException, AddItemException {
         instanceToTest.runFakeExecution();
         String printout = printoutBuffer.toString();
         String expectedOutput = "started";

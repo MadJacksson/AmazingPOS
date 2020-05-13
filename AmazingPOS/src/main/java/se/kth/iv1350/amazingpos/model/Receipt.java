@@ -25,7 +25,7 @@ public class Receipt {
      */
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("\n*******RECEIPT*******\n");
+        result.append("\n----------RECEIPT----------\n");
         addLocalDate(result);
         result.append("\nITEMS: \n");
         result.append(sale.toString());

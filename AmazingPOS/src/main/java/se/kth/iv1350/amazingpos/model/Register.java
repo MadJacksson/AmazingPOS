@@ -7,12 +7,14 @@ import se.kth.iv1350.amazingpos.util.Amount;
  */
 public class Register {
     private Amount balance;
+    private RegisterObserver observer;
 
     /**
      * An instance of register is created with a start of balance zero.
      */
-    public Register() {
+    public Register(RegisterObserver observer){
         this.balance = new Amount(0);
+        this.observer = observer;
     }
 
     /**
